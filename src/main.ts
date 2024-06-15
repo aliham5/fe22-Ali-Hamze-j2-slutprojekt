@@ -1,4 +1,4 @@
-import { signUp, signIn, deleteUserAccount, logout } from './modules/auth';
+import { signUp, signIn, deleteUserAccount, logout, auth } from './modules/auth';
 import { createProfile, addStatusUpdate, getProfile, getAllProfiles } from './modules/profile';
 
 const dajjalDiv = document.getElementById('dajjal') as HTMLDivElement;
@@ -50,6 +50,7 @@ function renderLogin() {
       return;
     }
     await signIn(username, password);
+    if (auth.currentUser==null) return alert("wrong password or username")
     currentUsername = username;
     renderProfile(username);
   };

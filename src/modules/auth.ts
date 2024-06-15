@@ -13,8 +13,10 @@ import { firebaseConfig } from "../firebasConfig";
 import { FirebaseError } from "firebase/app";
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 const db = getDatabase(app);
+
+
 
 export async function signUp(username: string, password: string) {
   try {
@@ -32,17 +34,21 @@ export async function signUp(username: string, password: string) {
 
 export async function signIn(username: string, password: string) {
   try {
+    
     const email = `${username}@example.com`;
     const userCredential = await signInWithEmailAndPassword(
       auth,
       email,
       password
     );
+    console.log(userCredential)
     console.log("User signed in:");
   } catch (error) {
     handleAuthError(error, "signing in");
   }
 }
+
+
 
 export async function deleteUserAccount(username: string, password: string) {
   const user = auth.currentUser;
@@ -68,9 +74,11 @@ export async function deleteUserAccount(username: string, password: string) {
 export async function logout() {
   try {
     await signOut(auth);
+    console.log(auth)
     console.log("User logged out");
   } catch (error) {
     handleAuthError(error, "logging out");
+    
   }
 }
 
